@@ -1,5 +1,5 @@
 class PledgesController < ApplicationController
-  before_action :require_login
+  # before_action :require_login
 
   def create
     @project = Project.find(params[:project_id])
