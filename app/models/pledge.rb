@@ -4,7 +4,6 @@ class Pledge < ApplicationRecord
 
   validates :dollar_amount, presence: true
   validates :user, presence: true
-
   validate :owner_of_project
 
   def owner_of_project
@@ -12,5 +11,6 @@ class Pledge < ApplicationRecord
       errors.add(:notice, "You're the owner of the project!!!)")
     end
   end
+
 
 end
