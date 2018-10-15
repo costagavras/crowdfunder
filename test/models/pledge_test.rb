@@ -45,4 +45,13 @@ class PledgeTest < ActiveSupport::TestCase
     )
   end
 
+  def test_dollar_ammount_must_exist
+    pledge = Pledge.create(
+      project: new_project,
+      user: new_user
+    )
+
+    assert pledge.valid?
+  end
+
 end
