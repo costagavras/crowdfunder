@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
 
   validates :title, :description, :goal, :start_date, :end_date, presence: true
   validate :has_owner
+
 end
 
 private
