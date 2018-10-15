@@ -4,7 +4,14 @@ class Pledge < ApplicationRecord
 
   validates :dollar_amount, presence: true
   validates :user, presence: true
-  validate :check_back_project
+  validate :back_own_project
 
+def back_own_project
+    if self.user == self.project.user
+      errors.add(:Owner, 'should not be able to pledge towards own project')
+    else
+
+    end
+end
 
 end
