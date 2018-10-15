@@ -4,4 +4,7 @@ class Pledge < ApplicationRecord
 
   validates :dollar_amount, presence: true
   validates :user, presence: true
+  validate :check_back_project
+
+
 end
