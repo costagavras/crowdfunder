@@ -45,4 +45,18 @@ class PledgeTest < ActiveSupport::TestCase
     )
   end
 
+  def test_dollar_ammount_must_exist
+
+    start =   DateTime.now + 500
+    finish =  DateTime.now + 1000
+
+    pledge = Pledge.new(
+      project: new_project,
+      user: new_user
+    )
+
+    pledge.valid?
+    assert_includes(pledge.errors.full_messages, "Dollar amount can't be blank" )
+  end
+
 end
