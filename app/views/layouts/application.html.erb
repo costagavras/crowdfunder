@@ -17,7 +17,12 @@
 
       <nav class="site-nav">
         <% if current_user %>
-          <%= link_to "Logout", :logout, method: :delete %>
+            <% if current_user.admin %>
+                <p>Logged in as admin: <%= link_to current_user.email, user_path(current_user) %></p>
+            <% else %>
+                <p>Logged in as user: <%= link_to current_user.email, user_path(current_user) %></p>
+            <% end %>
+        <%= link_to "Logout", :logout, method: :delete %>
         <% else %>
           <%= link_to "Register", new_user_path %> |
           <%= link_to "Login", :login %>
