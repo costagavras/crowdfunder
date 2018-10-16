@@ -56,7 +56,38 @@ class ProjectTest < ActiveSupport::TestCase
     my_project.valid?
 
     assert_includes(my_project.errors.full_messages, "Goal must be greater than 0.0")
+  end
 
+  def test_project_start_date_must_be_in_the_future
+
+    start =   DateTime.now - 5000
+    finish =  DateTime.now + 1000
+
+    my_project = Project.new(title: "My Project",
+                             description: "My Description",
+                             goal: 1000,
+                             start_date: start,
+                             end_date: finish)
+
+    my_project.valid?
+
+    assert_includes(my_project.errors.full_messages, "Start date must be in the future.")
+  end
+
+  def test_project_start_date_must_be_in_the_future
+
+    start =   DateTime.now + 1000
+    finish =  DateTime.now + 500
+
+    my_project = Project.new(title: "My Project",
+                             description: "My Description",
+                             goal: 1000,
+                             start_date: start,
+                             end_date: finish)
+
+    my_project.valid?
+
+    assert_includes(my_project.errors.full_messages, "End date should be later than start date.")
   end
 
 end
