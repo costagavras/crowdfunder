@@ -1,3 +1,14 @@
+
+<%if @project.errors %>
+  <div class="Project Errors">
+    <%@project.errors.full_messages.each do |message| %>
+      <h2> <%="#{message}" %> </h2>
+    <%end %>
+  </div>
+<%end %>
+
+
+
 <h1>Create a new project</h1>
 
 <%= render 'form' %>
