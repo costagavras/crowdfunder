@@ -53,4 +53,15 @@ class RewardTest < ActiveSupport::TestCase
     )
   end
 
+
+  def test_dollar_ammount_must_be_positive
+    my_reward = Reward.new(
+      description: "Temp Description",
+      dollar_amount: -1.5
+    )
+
+    my_reward.valid?
+    assert_includes(my_reward.errors.full_messages, "Dollar amount must be greater than 0.0" )
+  end
+
 end
