@@ -23,10 +23,24 @@ class ProjectsController < ApplicationController
     @project.start_date = params[:project][:start_date]
     @project.end_date = params[:project][:end_date]
     @project.image = params[:project][:image]
+    @project.user_id = current_user.id
 
     if @project.save
       redirect_to projects_url
     else
+      error_message = ""
+      @project.errors.full_messages.each do |message|
+        if message == @project.errors.full_messages.last
+          error_message += "#{message}"
+        else
+          error_message += "#{message} and "
+        end
+
+      end
+      if(error_message != "")
+        flash[:notice] = "Error: #{error_message}"
+      end
+
       render :new
     end
    end
