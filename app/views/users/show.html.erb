@@ -1,0 +1,53 @@
+<%= link_to('Back to index', projects_path) %>
+<hr>
+<h1>User: <%= @user.first_name %></h1>
+<div>
+<p> Email: <%= @user.email %></p>
+<p> Admin status: <%= @user.admin %></p>
+</div>
+<hr>
+
+<div>
+  <hr>
+  <br>
+  <% pledge_total = 0 %>
+  <% @pledges.each do |pledge|%>
+      <% pledge_total += pledge.dollar_amount %>
+  <%end%>
+      <h3>Total pledged, $:   <%=pledge_total%></h3>
+</div>
+
+<div>
+  <hr>
+  <h2>List of projects owned:</h2>
+  <hr>
+  <br>
+  <% @my_projects.each do |project|%>
+    <ul>
+      <li>
+      <h2><%=link_to("#{project.title}","/projects/#{project.id}") %></h2>
+      <h3>Goal, $: <%=project.goal%></h3>
+      <h3>End date: <%=project.end_date%></h3>
+      </li>
+      <br>
+    </ul>
+  <%end%>
+</div>
+
+<div>
+  <hr>
+  <h2>List of projects backed:</h2>
+  <hr>
+  <br>
+  <% @pledges.each do |pledge|%>
+    <ul>
+      <li>
+      <h2><%=link_to("#{pledge.project.title}","/projects/#{pledge.project.id}") %></h2>
+      <h3>Project goal, $: <%=pledge.project.goal%></h3>
+      <h3>End date: <%=pledge.project.end_date%></h3>
+      <h4>Pledge amount $: <%=pledge.dollar_amount%></h4>
+      </li>
+      <br>
+    </ul>
+  <%end%>
+</div>

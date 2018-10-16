@@ -17,4 +17,17 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+
+  def show
+    @user = User.find(params[:id])
+    # @projects = Project.all
+    @my_projects = @user.projects
+    # @my_projects = Project.where(user_id: @user.id) #projects I own
+    if @user.pledges
+      @pledges = @user.pledges
+      @my_pledged_projects = @user.my_pledged_projects
+    end
+  end
+
 end
