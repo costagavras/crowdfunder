@@ -46,12 +46,13 @@ class PledgeTest < ActiveSupport::TestCase
   end
 
   def test_dollar_ammount_must_exist
-    pledge = Pledge.create(
+    pledge = Pledge.new(
       project: new_project,
       user: new_user
     )
 
-    assert pledge.valid?
+    pledge.valid?
+    assert_includes(pledge.errors.full_messages, "Dollar amount can't be blank" )
   end
 
 end
