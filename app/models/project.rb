@@ -10,22 +10,49 @@ class Project < ActiveRecord::Base
   validate :check_date
   validate :has_owner
 
-end
 
-private
+  def self.projects_count
+      Project.all.count
+  end
+
+  def self.fund_count
+      total_count = 0
+       Project.all.each do |project|
+          if project.pledges
+             total_count += 1
+           end
+         end
+      total_count
+  end
+
+  def self.pledge_count
+     pledge_count = 0
+      Project.all.each do |project|
+        if project.pledges
+         project.pledges.each do |pledge|
+           pledge_count += pledge.dollar_amount
+         end
+        end
+      end
+     pledge_count
+  end
+
+  private
 
   def has_owner
-      if self.user_id
+    if self.user_id
 
-      else
-        errors.add(:Project, 'should not save without owner.')
-      end
+    else
+      errors.add(:Project, 'should not save without owner.')
+    end
   end
 
   def check_date
-      if self.start_date < Time.now
-        errors.add(:start_date, 'must be in the future.')
-      elsif self.start_date > self.end_date
-        errors.add(:end_date, 'should be later than start date.')
-      end
+    if self.start_date < Time.now
+      errors.add(:start_date, 'must be in the future.')
+    elsif self.start_date > self.end_date
+      errors.add(:end_date, 'should be later than start date.')
+    end
+  end
+
   end

@@ -40,8 +40,6 @@ class ProjectTest < ActiveSupport::TestCase
     )
   end
 
-
-
   def test_project_goal_validiation_must_be_a_positive_number
 
     start =   DateTime.now + 500
@@ -89,5 +87,23 @@ class ProjectTest < ActiveSupport::TestCase
 
     assert_includes(my_project.errors.full_messages, "End date should be later than start date.")
   end
+
+  def test_project_projects_count
+
+    my_project = []
+
+    10.times do
+      my_project << Project.create(title: "My Project",
+                                   description: "My Description",
+                                   goal: 1000, start_date:"2018-10-18 18:51:32",
+                                   end_date: "2018-10-24 18:51:32",
+                                   user_id: 2)
+    end
+    actual_value = Project.projects_count
+    expected_value = 10
+
+    assert_equal(expected_value, actual_value)
+  end
+
 
 end
