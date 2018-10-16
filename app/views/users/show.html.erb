@@ -10,11 +10,7 @@
 <div>
   <hr>
   <br>
-  <% pledge_total = 0 %>
-  <% @pledges.each do |pledge|%>
-      <% pledge_total += pledge.dollar_amount %>
-  <%end%>
-      <h3>Total pledged, $:   <%=pledge_total%></h3>
+  <h3>Total pledged, $:   <%=@user.sum_pledges%></h3>
 </div>
 
 <div>
