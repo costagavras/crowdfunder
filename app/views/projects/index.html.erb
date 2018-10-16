@@ -1,32 +1,8 @@
 <%= link_to "New Project", new_project_path %>
 
-
-  <h2>Total <%= @projects.count %></h2>
-  <h2>
-    Funded:
-    <% total_count = 0 %>
-    <% @projects.each do |project| %>
-      <% if project.rewards %>
-        <% total_count += 1 %>
-      <% end %>
-    <% end %>
-    <%= total_count %>
-  </h2>
-
-  <h2>
-    Pledge:
-    <% pledge_count = 0 %>
-        <% @projects.each do |project| %>
-          <% if project.pledges %>
-              <% project.pledges.each do |pledge| %>
-                <% pledge_count += pledge.dollar_amount %>
-              <% end %>
-          <% end %>
-        <% end %>
-        <%= pledge_count%>
-  </h2>
-
-
+<h2>Projects: <%=@total_projects %> </h2>
+<h2>Funds: <%=@total_project_funds_true %> </h2>
+<h2>Pledges: <%=@total_pledge %> </h2>
 
 <% @projects.each do |project| %>
   <article class="project">
