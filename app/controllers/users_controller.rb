@@ -14,15 +14,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to projects_url
     else
-      error_message = ""
-      @user.errors.full_messages.each do |message|
-        if message == @user.errors.full_messages.last
-          error_message += "#{message}"
-        else
-          error_message += "#{message},  "
-        end
-      end
-      if(error_message != "")
+      error_message = @user.errors.full_messages.first
+      if(error_message)
         flash[:notice] = "Error: #{error_message}"
       end
       render 'new'
