@@ -7,7 +7,7 @@ class ProjectTest < ActiveSupport::TestCase
     owner.save
     project = new_project
     project.user = owner
-    project.save
+    project.save!
     assert project.valid?
     assert project.persisted?
     assert project.user
@@ -24,8 +24,8 @@ class ProjectTest < ActiveSupport::TestCase
     Project.new(
       title:       'Cool new boardgame',
       description: 'Trade sheep',
-      start_date:  Date.today + 1.day,
-      end_date:    Date.today + 1.month,
+      start_date:  DateTime.now + 1.day,
+      end_date:    DateTime.now + 1.month,
       goal:        50000
     )
   end

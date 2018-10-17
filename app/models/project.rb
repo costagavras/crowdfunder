@@ -48,11 +48,19 @@ class Project < ActiveRecord::Base
   end
 
   def check_date
-    if self.start_date < Time.now
-      errors.add(:start_date, 'must be in the future.')
-    elsif self.start_date > self.end_date
-      errors.add(:end_date, 'should be later than start date.')
+    
+    if !self.start_date
+      errors.add(:start_date, 'must not be blank.')
+    elsif !self.end_date
+      errors.add(:end_date, 'must not be blank.')
+    else
+      if self.start_date < Time.now
+        errors.add(:start_date, 'must be in the future.')
+      elsif self.start_date > self.end_date
+        errors.add(:end_date, 'should be later than start date.')
+      end
     end
+
   end
 
   end
