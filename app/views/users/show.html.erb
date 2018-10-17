@@ -1,49 +1,43 @@
 <%= link_to('Back to index', projects_path) %>
 <hr>
-<h1>User: <%= @user.first_name %></h1>
+<h1>User: <%= @user.first_name %> <%= @user.last_name %></h1>
 <div>
 <p> Email: <%= @user.email %></p>
 <p> Admin status: <%= @user.admin %></p>
 </div>
 <hr>
 
-<div>
-  <hr>
-  <br>
-  <h3>Total pledged, $:   <%=@user.sum_pledges%></h3>
+<div class="total_user_pledged">
+  <h3>Total pledged: <%=number_to_currency(@user.sum_pledges)%></h3>
 </div>
 
-<div>
+<div class="projects_owned">
   <hr>
   <h2>List of projects owned:</h2>
   <hr>
-  <br>
   <% @my_projects.each do |project|%>
     <ul>
       <li>
-      <h2><%=link_to("#{project.title}","/projects/#{project.id}") %></h2>
-      <h3>Goal, $: <%=project.goal%></h3>
-      <h3>End date: <%=project.end_date%></h3>
+        <h2><%=link_to("#{project.title}","/projects/#{project.id}") %></h2>
+        <h3>Goal: <%=number_to_currency(project.goal)%></h3>
+        <h3>End date: <%=project.end_date%></h3>
       </li>
-      <br>
     </ul>
   <%end%>
 </div>
 
-<div>
+<div class="projects_backed">
   <hr>
   <h2>List of projects backed:</h2>
   <hr>
-  <br>
   <% @pledges.each do |pledge|%>
     <ul>
       <li>
-      <h2><%=link_to("#{pledge.project.title}","/projects/#{pledge.project.id}") %></h2>
-      <h3>Project goal, $: <%=pledge.project.goal%></h3>
-      <h3>End date: <%=pledge.project.end_date%></h3>
-      <h4>Pledge amount $: <%=pledge.dollar_amount%></h4>
+        <h2><%=link_to("#{pledge.project.title}","/projects/#{pledge.project.id}") %></h2>
+        <h3>Project goal: <%=number_to_currency(pledge.project.goal)%></h3>
+        <h3>End date: <%=pledge.project.end_date%></h3>
+        <h4>Pledge amount: <%=number_to_currency(pledge.dollar_amount)%></h4>
       </li>
-      <br>
     </ul>
   <%end%>
 </div>
