@@ -34,16 +34,8 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to projects_url
     else
-      error_message = ""
-      @project.errors.full_messages.each do |message|
-        if message == @project.errors.full_messages.last
-          error_message += "#{message}"
-        else
-          error_message += "#{message} and "
-        end
-
-      end
-      if(error_message != "")
+      error_message = @project.errors.full_messages.first
+      if(error_message)
         flash[:notice] = "Error: #{error_message}"
       end
 
