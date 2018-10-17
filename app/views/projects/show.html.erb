@@ -1,13 +1,13 @@
 <%= link_to('Back to index', projects_path) %>
 <hr>
-<br>
 
 <h1><%= @project.title %></h1>
-
+<hr>
 <% if @project.image.present? %>
   <%= image_tag @project.image %>
 <% end %>
 
+by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@project.user.email})","/users/#{@project.user.id}") %>
 <p><%= @project.description %></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
@@ -22,17 +22,14 @@
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
-
+<br>
+<hr>
 <h2>Rewards</h2>
+<hr>
 <% @project.rewards.each do |reward| %>
-  <p><%= number_to_currency(reward.dollar_amount) %></p>
-  <p><%= reward.description %></p>
 
-  <p>
-    <small>
-      <%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %>
-    </small>
-  </p>
+  <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %>  |  <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></p></small>
+
 <% end %>
 
 <%= link_to "Add new reward", new_project_reward_path(@project) %>

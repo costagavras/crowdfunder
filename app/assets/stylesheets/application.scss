@@ -16,3 +16,26 @@
 
 // Module styles
 @import 'projects';
+
+.logo {
+  background-color: pink;
+  font-size: 2rem;
+}
+
+.site-nav {
+  background-color: rgb(247, 207, 225);
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+span {
+  font-weight: bold;
+}
+
+.site-header {
+  margin-bottom: 0
+}
+
+.site-footer {
+  padding: 0.5rem;
+  background-color: rgb(165, 198, 255);
+}
