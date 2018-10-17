@@ -40,4 +40,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'guard', '~> 2.14.0'
   gem 'guard-minitest'
+  gem 'factory_girl_rails'
 end
