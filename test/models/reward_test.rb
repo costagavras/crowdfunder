@@ -64,4 +64,24 @@ class RewardTest < ActiveSupport::TestCase
     assert_includes(my_reward.errors.full_messages, "Dollar amount must be greater than 0.0" )
   end
 
+  def test_reward_belongs_to_project
+    project = new_project
+    project.save
+    reward = Reward.create(
+      description: 'A heartfelt thanks!',
+      project: project,
+    )
+
+    my_association = reward.project
+    expected = project
+
+    assert_equal(expected, my_association)
+
+  end
+
+
+
+
+
+
 end
