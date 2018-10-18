@@ -5,7 +5,7 @@ class ProjectTest < ActiveSupport::TestCase
   def test_valid_project_can_be_created
     owner = new_user
     owner.save
-    project = new_project
+    project = build(:project)
     project.user = owner
     project.save!
     assert project.valid?
@@ -14,21 +14,12 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_project_is_invalid_without_owner
-    project = new_project
+    project = build(:project)
     project.user = nil
     project.save
     assert project.invalid?, 'Project should not save without owner.'
   end
 
-  def new_project
-    Project.new(
-      title:       'Cool new boardgame',
-      description: 'Trade sheep',
-      start_date:  DateTime.now + 1.day,
-      end_date:    DateTime.now + 1.month,
-      goal:        50000
-    )
-  end
 
   def new_user
     User.new(
@@ -41,18 +32,8 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_project_goal_validiation_must_be_a_positive_number
-
-    start =   DateTime.now + 500
-    finish =  DateTime.now + 1000
-
-    my_project = Project.new(title: "My Project",
-                             description: "My Description",
-                             goal: -5,
-                             start_date: start,
-                             end_date: finish)
-
+    my_project = build(:project, goal: -50000)
     my_project.valid?
-
     assert_includes(my_project.errors.full_messages, "Goal must be greater than 0.0")
   end
 
@@ -61,11 +42,7 @@ class ProjectTest < ActiveSupport::TestCase
     start =   DateTime.now - 5000
     finish =  DateTime.now + 1000
 
-    my_project = Project.new(title: "My Project",
-                             description: "My Description",
-                             goal: 1000,
-                             start_date: start,
-                             end_date: finish)
+    my_project = build(:project, start_date: start, end_date: finish)
 
     my_project.valid?
 
@@ -77,11 +54,7 @@ class ProjectTest < ActiveSupport::TestCase
     start =   DateTime.now + 1000
     finish =  DateTime.now + 500
 
-    my_project = Project.new(title: "My Project",
-                             description: "My Description",
-                             goal: 1000,
-                             start_date: start,
-                             end_date: finish)
+    my_project = build(:project, start_date: start, end_date: finish)
 
     my_project.valid?
 
@@ -91,18 +64,88 @@ class ProjectTest < ActiveSupport::TestCase
   def test_project_projects_count
 
     my_project = []
+    user = new_user
+    user.save
 
     10.times do
-      my_project << Project.create(title: "My Project",
-                                   description: "My Description",
-                                   goal: 1000, start_date:"2018-10-18 18:51:32",
-                                   end_date: "2018-10-24 18:51:32",
-                                   user_id: 2)
+      my_project << create(:project, user: user)
     end
+
     actual_value = Project.projects_count
     expected_value = 10
-
     assert_equal(expected_value, actual_value)
+  end
+
+  def test_project_has_many_rewards
+    reward1 = create(:reward)
+    user = new_user
+    user.save
+    project = create(:project, user: user, rewards: [reward1])
+
+    expected = [reward1]
+    actual = project.rewards
+
+    assert_equal(expected, actual)
+  end
+
+  def test_project_has_many_pledges
+
+    user_backing = new_user
+    user_owning = new_user
+
+    user_backing.save
+    user_owning.save
+
+    new_project = build(:project, user: user_owning)
+
+    pledge = Pledge.create(
+      dollar_amount: 50.00,
+      project: new_project,
+      user: user_backing
+    )
+
+    new_project.pledges = [pledge]
+
+    expected = [pledge]
+    actual = new_project.pledges
+
+    assert_equal(expected, actual)
+  end
+
+  def test_project_has_many_users_through_pledges
+    project_owner = new_user
+    project_owner.save
+
+    project = create(:project, user: project_owner)
+
+    project_backer = new_user
+    project_backer.email = "new.agsdfkjhbfe"
+    project_backer.save
+
+
+    pledge = Pledge.create(
+      dollar_amount: 50.00,
+      project: project,
+      user: project_backer
+    )
+
+    expected = project_backer
+    actual = project.users.first
+
+
+    assert_equal(expected, actual)
+
+  end
+
+  def test_project_belongs_to_user
+    user = new_user
+    user.save
+    my_project = create(:project, user: user)
+
+    expected = user
+    actual = my_project.user
+
+    assert_equal(expected, actual)
   end
 
 
