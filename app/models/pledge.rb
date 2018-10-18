@@ -12,6 +12,11 @@ class Pledge < ApplicationRecord
     end
   end
 
-  
+  def show_pledges
+
+  end
+    
+
+
 
 end
