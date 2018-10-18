@@ -6,7 +6,7 @@ class RewardTest < ActiveSupport::TestCase
 
     project = new_project
     project.save
-    reward = create(:reward, project: project, dollar_amount: 99.0)
+    reward = create(:reward, project: project)
     assert reward.valid?
     assert reward.persisted?
   end
@@ -15,22 +15,18 @@ class RewardTest < ActiveSupport::TestCase
 
     project = new_project
     project.save
-    reward = build(:reward, project: project)
-    binding.pry
-    assert reward.invalid?, 'Reward should be invalid without dollar amount'
-    assert reward.new_record?, 'Reward should not save without dollar amount'
+    new_reward = build(:reward, project: project, dollar_amount: nil)
+    assert new_reward.invalid?, 'Reward should be invalid without dollar amount'
+    #assert new_reward.new_record?, 'Reward should not save without dollar amount'
   end
 
   def test_a_reward_cannot_be_created_without_a_description
 
     project = new_project
     project.save
-    reward = Reward.create(
-      dollar_amount: 99.00,
-      project: project
-    )
+    reward = build(:reward, project: project, description: nil)
     assert reward.invalid?, 'Reward should be invalid without a description'
-    assert reward.new_record?, 'Reward should not save without a description'
+    #assert reward.new_record?, 'Reward should not save without a description'
 
   end
 
@@ -47,10 +43,7 @@ class RewardTest < ActiveSupport::TestCase
 
 
   def test_dollar_ammount_must_be_positive
-    my_reward = Reward.new(
-      description: "Temp Description",
-      dollar_amount: -1.5
-    )
+    my_reward = build(:reward, dollar_amount: -50)
 
     my_reward.valid?
     assert_includes(my_reward.errors.full_messages, "Dollar amount must be greater than 0.0" )

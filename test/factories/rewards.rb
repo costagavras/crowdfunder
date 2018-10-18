@@ -1,8 +1,7 @@
 FactoryBot.define do
 
   factory :reward do
-    dollar_amount {99.00}
-    description {'A heartfelt thanks!'}
-    #project project
+    description {"A heartfelt thanks!"}
+    dollar_amount {99.0}
   end
 end
