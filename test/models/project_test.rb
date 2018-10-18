@@ -51,11 +51,7 @@ class ProjectTest < ActiveSupport::TestCase
     start =   DateTime.now - 5000
     finish =  DateTime.now + 1000
 
-    my_project = Project.new(title: "My Project",
-                             description: "My Description",
-                             goal: 1000,
-                             start_date: start,
-                             end_date: finish)
+    my_project = build(:project, start_date: start, end_date: finish)
 
     my_project.valid?
 
