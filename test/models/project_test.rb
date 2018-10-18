@@ -41,18 +41,8 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_project_goal_validiation_must_be_a_positive_number
-
-    start =   DateTime.now + 500
-    finish =  DateTime.now + 1000
-
-    my_project = Project.new(title: "My Project",
-                             description: "My Description",
-                             goal: -5,
-                             start_date: start,
-                             end_date: finish)
-
+    my_project = build(:project, goal: -50000)
     my_project.valid?
-
     assert_includes(my_project.errors.full_messages, "Goal must be greater than 0.0")
   end
 
