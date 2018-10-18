@@ -32,4 +32,11 @@ by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@projec
 
 <% end %>
 
+<h2>Pledges</h2>
+<hr>
+<% @project.pledges.each do |pledge| %>
+
+  <p>Pledge: <%= number_to_currency(pledge.dollar_amount) %>    
+<% end %>
+
 <%= link_to "Add new reward", new_project_reward_path(@project) %>

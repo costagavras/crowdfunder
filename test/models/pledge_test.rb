@@ -60,15 +60,9 @@ class PledgeTest < ActiveSupport::TestCase
   end
 
   def test_pledge_count_total
-
-
     my_user = []
-
       my_user1 = User.create(email: "bettymaker@gmail.com", password: "12345678", password_confirmation: "12345678")
-
       my_user2 = User.create(email: "kekeke@gmail.com", password: "12345678", password_confirmation: "12345678")
-
-
       my_project = Project.create(title: "My Project",
                                      description: "My Description",
                                      goal: 1000, start_date:"2018-10-18 18:51:32",
