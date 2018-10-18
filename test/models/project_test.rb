@@ -86,19 +86,66 @@ class ProjectTest < ActiveSupport::TestCase
     actual = project.rewards
 
     assert_equal(expected, actual)
-
   end
 
   def test_project_has_many_pledges
 
+    user_backing = new_user
+    user_owning = new_user
+
+    user_backing.save
+    user_owning.save
+
+    new_project = build(:project, user: user_owning)
+
+    pledge = Pledge.create(
+      dollar_amount: 50.00,
+      project: new_project,
+      user: user_backing
+    )
+
+    new_project.pledges = [pledge]
+
+    expected = [pledge]
+    actual = new_project.pledges
+
+    assert_equal(expected, actual)
   end
 
   def test_project_has_many_users_through_pledges
+    project_owner = new_user
+    project_owner.save
+
+    project = create(:project, user: project_owner)
+
+    project_backer = new_user
+    project_backer.email = "new.agsdfkjhbfe"
+    project_backer.save
+
+
+    pledge = Pledge.create(
+      dollar_amount: 50.00,
+      project: project,
+      user: project_backer
+    )
+
+    expected = project_backer
+    actual = project.users.first
+
+
+    assert_equal(expected, actual)
 
   end
 
   def test_project_belongs_to_user
+    user = new_user
+    user.save
+    my_project = create(:project, user: user)
 
+    expected = user
+    actual = my_project.user
+
+    assert_equal(expected, actual)
   end
 
 
