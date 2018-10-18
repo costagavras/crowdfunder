@@ -52,15 +52,12 @@ class RewardTest < ActiveSupport::TestCase
   def test_reward_belongs_to_project
     project = new_project
     project.save
-    reward = Reward.create(
-      description: 'A heartfelt thanks!',
-      project: project,
-    )
+    reward = build(:reward, project: project)
 
-    my_association = reward.project
+    actual = reward.project
     expected = project
 
-    assert_equal(expected, my_association)
+    assert_equal(expected, actual)
 
   end
 
