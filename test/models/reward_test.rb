@@ -6,7 +6,7 @@ class RewardTest < ActiveSupport::TestCase
 
     project = new_project
     project.save
-    reward = create(:reward, project: project)
+    reward = create(:reward, project: project, dollar_amount: 99.0)
     assert reward.valid?
     assert reward.persisted?
   end
@@ -15,12 +15,8 @@ class RewardTest < ActiveSupport::TestCase
 
     project = new_project
     project.save
-    reward = Reward.create(
-      description: 'A heartfelt thanks!',
-      project: project,
-
-    )
-    # reward.dollar_amount
+    reward = build(:reward, project: project)
+    binding.pry
     assert reward.invalid?, 'Reward should be invalid without dollar amount'
     assert reward.new_record?, 'Reward should not save without dollar amount'
   end
