@@ -23,10 +23,10 @@ class CommentsController < ApplicationController
     @comment.save
       redirect_to project_url(params[:project_id])
     end
-  
+
 
   def destroy
-    page = params[:project_id]
+
     @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to project_url(@comment.project_id)
