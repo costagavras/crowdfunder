@@ -76,5 +76,30 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal(expected_value, actual_value)
   end
 
+  def test_project_has_many_rewards
+    reward1 = create(:reward)
+    user = new_user
+    user.save
+    project = create(:project, user: user, rewards: [reward1])
+
+    expected = [reward1]
+    actual = project.rewards
+
+    assert_equal(expected, actual)
+
+  end
+
+  def test_project_has_many_pledges
+
+  end
+
+  def test_project_has_many_users_through_pledges
+
+  end
+
+  def test_project_belongs_to_user
+
+  end
+
 
 end
