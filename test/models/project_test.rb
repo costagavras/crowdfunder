@@ -72,7 +72,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_includes(my_project.errors.full_messages, "Start date must be in the future.")
   end
 
-  def test_project_start_date_must_be_in_the_future
+  def test_project_start_date_must_be_before_end_date
 
     start =   DateTime.now + 1000
     finish =  DateTime.now + 500
