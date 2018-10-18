@@ -6,11 +6,7 @@ class RewardTest < ActiveSupport::TestCase
 
     project = new_project
     project.save
-    reward = Reward.create(
-      dollar_amount: 99.00,
-      description: 'A heartfelt thanks!',
-      project: project
-    )
+    reward = create(:reward, project: project)
     assert reward.valid?
     assert reward.persisted?
   end
