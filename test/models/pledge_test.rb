@@ -89,5 +89,41 @@ class PledgeTest < ActiveSupport::TestCase
     assert_equal(expected_value, actual_value)
   end
 
+  def test_pledge_belongs_to_user
+    my_user1 = new_user
+    my_user2 = new_user
+    my_project = new_project
+
+    my_pledge = Pledge.create(dollar_amount: 2, user: my_user1, project: my_project)
+
+    expected = my_user1
+    actual = my_pledge.user
+
+    assert_equal(expected, actual)
+  end
+
+  def test_pledge_belongs_to_project
+    my_user1 = new_user
+    my_user2 = new_user
+    my_project = new_project
+
+    my_pledge = Pledge.create(dollar_amount: 2, user: my_user1, project: my_project)
+
+    expected = my_project
+    actual = my_pledge.project
+
+    assert_equal(expected, actual)
+  end
+
+  def test_pledge_must_have_a_user
+    my_project = new_project
+
+    my_pledge = Pledge.new(dollar_amount: 2,  project: my_project)
+
+    my_pledge.valid?
+
+    assert_includes(my_pledge.errors.full_messages, "User can't be blank" )
+  end
+
 
 end

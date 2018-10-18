@@ -1,5 +1,4 @@
 ENV['RAILS_ENV'] ||= 'test'
-include FactoryGirl::Syntax::Methods
 # To generate a test coverage report for the models,
 # instead of just the usual `rake` to run tests, use:
 # COVERAGE=true rake
@@ -13,3 +12,11 @@ end
 # Regular test setup
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+
+
+class ActiveSupport::TestCase
+
+  include FactoryBot::Syntax::Methods
+
+end
+
