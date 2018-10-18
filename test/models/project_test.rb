@@ -73,17 +73,15 @@ class ProjectTest < ActiveSupport::TestCase
   def test_project_projects_count
 
     my_project = []
+    user = new_user
+    user.save
 
     10.times do
-      my_project << Project.create(title: "My Project",
-                                   description: "My Description",
-                                   goal: 1000, start_date:"2018-10-18 18:51:32",
-                                   end_date: "2018-10-24 18:51:32",
-                                   user_id: 2)
+      my_project << create(:project, user: user)
     end
+
     actual_value = Project.projects_count
     expected_value = 10
-
     assert_equal(expected_value, actual_value)
   end
 
