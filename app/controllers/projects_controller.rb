@@ -9,11 +9,11 @@ class ProjectsController < ApplicationController
     @total_pledge = Project.pledge_count
   end
 
-
-
-
   def show
     @project = Project.find(params[:id])
+    @comments = Comment.where(project_id: @project.id)
+    @comments = @project.comments
+    @comment = Comment.new
   end
 
   def new

@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many :pledges
   has_many :users, through: :pledges # backers
   belongs_to :user # project owner
+  has_many :comments
 
   validates :title, :description, :goal, :start_date, :end_date, presence: true
   validates :goal, numericality: {greater_than: 0.0}
@@ -48,7 +49,7 @@ class Project < ActiveRecord::Base
   end
 
   def check_date
-    
+
     if !self.start_date
       errors.add(:start_date, 'must not be blank.')
     elsif !self.end_date
