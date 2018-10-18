@@ -20,15 +20,6 @@ class ProjectTest < ActiveSupport::TestCase
     assert project.invalid?, 'Project should not save without owner.'
   end
 
-  def new_project
-    Project.new(
-      title:       'Cool new boardgame',
-      description: 'Trade sheep',
-      start_date:  DateTime.now + 1.day,
-      end_date:    DateTime.now + 1.month,
-      goal:        50000
-    )
-  end
 
   def new_user
     User.new(
