@@ -5,7 +5,7 @@ class ProjectTest < ActiveSupport::TestCase
   def test_valid_project_can_be_created
     owner = new_user
     owner.save
-    project = new_project
+    project = build(:project)
     project.user = owner
     project.save!
     assert project.valid?
