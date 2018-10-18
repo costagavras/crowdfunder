@@ -14,7 +14,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   def test_project_is_invalid_without_owner
-    project = new_project
+    project = build(:project)
     project.user = nil
     project.save
     assert project.invalid?, 'Project should not save without owner.'
