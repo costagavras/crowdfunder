@@ -29,8 +29,8 @@ by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@projec
 <% @project.rewards.each do |reward| %>
 
   <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %>  |  <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></p></small>
-<%= link_to "Add new reward", new_project_reward_path(@project) %>
 <% end %>
+<%= link_to "Add new reward", new_project_reward_path(@project) %>
 
 <h2>Pledges</h2>
 <hr>
