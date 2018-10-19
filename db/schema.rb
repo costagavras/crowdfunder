@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_153005) do
+ActiveRecord::Schema.define(version: 2018_10_19_181852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2018_10_19_153005) do
     t.float "dollar_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "pledge_id"
+    t.index ["pledge_id"], name: "index_rewards_on_pledge_id"
   end
 
   create_table "updates", force: :cascade do |t|
@@ -73,4 +75,5 @@ ActiveRecord::Schema.define(version: 2018_10_19_153005) do
 
   add_foreign_key "pledges", "projects"
   add_foreign_key "pledges", "users"
+  add_foreign_key "rewards", "pledges"
 end

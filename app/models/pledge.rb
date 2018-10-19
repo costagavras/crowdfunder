@@ -1,6 +1,7 @@
 class Pledge < ApplicationRecord
   belongs_to :user
   belongs_to :project
+  has_many :rewards
 
   validates :dollar_amount, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :user, presence: true
