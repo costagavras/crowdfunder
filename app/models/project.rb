@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   has_many :users, through: :pledges # backers
   belongs_to :user # project owner
   has_many :comments
+  has_many :updates
 
   validates :title, :description, :goal, :start_date, :end_date, presence: true
   validates :goal, numericality: {greater_than: 0.0}
@@ -11,6 +12,9 @@ class Project < ActiveRecord::Base
   validate :check_date
   validate :has_owner
 
+  def display_reversed
+    return self.updates.order('created_at DESC')
+  end
 
   def self.projects_count
       Project.all.count
@@ -26,7 +30,7 @@ class Project < ActiveRecord::Base
       total_count
   end
 
-  def self.pledge_count
+  def self.total_pledge_value
      pledge_count = 0
       Project.all.each do |project|
         if project.pledges

@@ -62,8 +62,6 @@ class UserTest < ActiveSupport::TestCase
 #association tests-------------------------------------------------------------------------------------
   def test_project_belongs_to_user
     user = create(:user)
-    # project = Project.create(user: user, title: "XYZ", description: "Do stuff", goal: rand(100000),
-    # start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
     project = create(:project, user: user)
 
     actual = user.projects.first
