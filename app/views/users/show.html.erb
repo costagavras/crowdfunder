@@ -1,9 +1,9 @@
-<%= link_to('Back to index', projects_path) %>
+<h2><%= link_to('Back to index', projects_path) %></h2>
 <hr>
-<h1>User: <%= @user.first_name %> <%= @user.last_name %></h1>
+<h1>User: <i><%= @user.first_name %> <%= @user.last_name %></i></h1>
 <div>
-<p> Email: <%= @user.email %></p>
-<p> Admin status: <%= @user.admin %></p>
+<p> Email: <i><%= @user.email %></i></p>
+<p> Admin status: <i><%= @user.admin %></i></p>
 </div>
 <hr>
 
@@ -20,7 +20,7 @@
       <li>
         <h2><%=link_to("#{project.title}","/projects/#{project.id}") %></h2>
         <h3>Goal: <%=number_to_currency(project.goal)%></h3>
-        <h3>End date: <%=project.end_date%></h3>
+        <h3 class="end_date <%= ( project.end_date < Time.now.utc ) ? 'after_end_date' : '' %> " >End date: <%=project.end_date%></h3>
       </li>
     </ul>
   <%end%>
@@ -35,7 +35,7 @@
       <li>
         <h2><%=link_to("#{pledge.project.title}","/projects/#{pledge.project.id}") %></h2>
         <h3>Project goal: <%=number_to_currency(pledge.project.goal)%></h3>
-        <h3>End date: <%=pledge.project.end_date%></h3>
+        <h3 class="end_date <%= ( pledge.project.end_date < Time.now.utc ) ? 'after_end_date' : '' %> ">End date: <%=pledge.project.end_date%></h3>
         <h4>Pledge amount: <%=number_to_currency(pledge.dollar_amount)%></h4>
       </li>
     </ul>
