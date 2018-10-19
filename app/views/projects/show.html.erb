@@ -19,7 +19,7 @@ by <i><%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@pro
 <br>
 <br>
 <%= form_for [@project, Pledge.new] do |f| %>
-  <h2>I am using this form</h2>
+  <h2>Pledge an amount:</h2>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
