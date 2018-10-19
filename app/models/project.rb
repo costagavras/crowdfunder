@@ -12,6 +12,9 @@ class Project < ActiveRecord::Base
   validate :check_date
   validate :has_owner
 
+  def display_reversed
+    return self.updates.order('created_at DESC')
+  end
 
   def self.projects_count
       Project.all.count

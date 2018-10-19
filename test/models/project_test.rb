@@ -148,6 +148,29 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal(expected, actual)
   end
 
+  def test_project_has_many_updates
+    my_user = create(:user)
+    my_project = create(:project, user: my_user)
+    update = create(:update, project: my_project)
+
+    expected = update
+    actual = my_project.updates
+
+    assert_includes(actual, expected)
+  end
+
+  def test_projects_can_return_in_reverse_chronological_order
+
+    my_user = create(:user)
+    my_project = create(:project, user: my_user)
+    update1 = create(:update, project: my_project)
+    update2 = create(:update, project: my_project)
+
+    expected = [update2, update1]
+    actual = my_project.display_reversed
+    assert_equal(actual, expected)
+  end
+
 
 
 
