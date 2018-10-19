@@ -19,6 +19,7 @@ by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@projec
 <br>
 <br>
 <%= form_for [@project, Pledge.new] do |f| %>
+  <h2>I am using this form</h2>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
@@ -35,9 +36,9 @@ by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@projec
 <h2>Pledges</h2>
 <hr>
 <% @project.pledges.each do |pledge| %>
-
   <p><%=pledge.user.email%> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
 <% end %>
+
 
 <h2>New Review:</h2>
 

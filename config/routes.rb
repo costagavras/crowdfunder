@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :projects, only: [:index, :new, :create, :show] do
-    resources :pledges, only: [:create]
+    resources :pledges, only: [:create, :destroy]
     resources :rewards, only: [:new, :create, :destroy]
     resources :comments, except: [:index, :new, :show]
   end
