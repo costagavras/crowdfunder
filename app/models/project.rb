@@ -25,11 +25,7 @@ class Project < ActiveRecord::Base
 
        Project.all.each do |project|
           if project.pledges
-            pledge_count = 0
-            project.pledges.each do |pledge|
-              pledge_count += pledge.dollar_amount
-            end
-            if pledge_count >= project.goal
+            if total_pledge_value >= project.goal
               total_count += 1
             end
           end

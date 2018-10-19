@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
     @projects = @projects.order(:end_date)
     @total_projects = Project.projects_count
     @total_project_funds_true = Project.fund_count
-    @total_pledge = Project.pledge_count
+    @total_pledge = Project.total_pledge_value
   end
 
   def show
