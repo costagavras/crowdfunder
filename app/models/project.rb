@@ -42,6 +42,20 @@ class Project < ActiveRecord::Base
      pledge_count
   end
 
+  def self.pledges_to_rewards
+      if self.user == current_user && self.pledges && self.rewards
+        self.pledges each do |pledge|
+          self.rewards each do |reward|
+            Rewards.where(pledge.dollar_amount>= reward.dollar_amount)
+
+          end
+        end
+      end
+
+
+  end
+
+
   private
 
   def has_owner

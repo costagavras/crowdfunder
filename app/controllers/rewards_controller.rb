@@ -26,7 +26,7 @@ class RewardsController < ApplicationController
     else
       @project = Project.find(params[:project_id])
       @comment = Comment.new
-      flash[:error] = "You are not the owner; you cannot delete this reward"
+      flash[:alert] = "You are not the owner; you cannot delete this reward"
       render "/projects/show"
     end
 
