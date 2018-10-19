@@ -22,11 +22,18 @@ class Project < ActiveRecord::Base
 
   def self.fund_count
       total_count = 0
+
        Project.all.each do |project|
           if project.pledges
-             total_count += 1
-           end
-         end
+            pledge_count = 0
+            project.pledges.each do |pledge|
+              pledge_count += pledge.dollar_amount
+            end
+            if pledge_count >= project.goal
+              total_count += 1
+            end
+          end
+      end
       total_count
   end
 

@@ -2,7 +2,7 @@
 <div class = "mini-header">
   <h2><%= link_to "New Project", new_project_path %></h2>
   <h2>Projects: <%=@total_projects %> </h2>
-  <h2>Funds: <%=number_to_currency(@total_project_funds_true) %> </h2>
+  <h2>Funds: <%=@total_project_funds_true %> </h2>
   <h2>Pledges: <%=number_to_currency(@total_pledge) %> </h2>
 </div>
 
