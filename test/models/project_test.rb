@@ -4,7 +4,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   def test_valid_project_can_be_created
     owner = create(:user)
-    
+
     project = build(:project)
     project.user = owner
     project.save!
@@ -136,6 +136,45 @@ class ProjectTest < ActiveSupport::TestCase
     expected = [update2, update1]
     actual = my_project.display_reversed
     assert_equal(actual, expected)
+  end
+
+  def test_pledge_count_total
+    my_user = []
+
+      my_user1 = create(:user)
+      my_user2 = create(:user, email: "oooo@gmail.com")
+
+      my_project = create(:project, user: my_user1)
+
+
+    my_pledge = []
+
+    10.times do
+      my_pledge = create(:pledge, project: my_project, user: my_user2, dollar_amount: 2)
+    end
+
+    expected_value = 20
+    actual_value = Project.total_pledge_value
+
+    assert_equal(expected_value, actual_value)
+  end
+
+
+  def test_total_fund_count
+    user1 = create(:user, email: "oooo@gmail.com")
+    user2 = create(:user, email: "oooom@gmail.com")
+
+    project1  = create(:project, goal: 20, user: user1)
+    project2 = create(:project, goal: 20, user: user1)
+    project3 = create(:project, goal: 20, user: user1)
+
+    pledge1 = create(:pledge, project: project1, user: user2)
+    pledge2 = create(:pledge, project: project1, user: user2)
+
+    expected = 1
+    actual = Project.fund_count
+
+    assert_equal(expected, actual)
   end
 
 
