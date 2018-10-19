@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
     else
       error_message = @project.errors.full_messages.first
       if(error_message)
-        flash[:notice] = "Error: #{error_message}"
+        flash[:alert] = "Error: #{error_message}"
       end
 
       render :new

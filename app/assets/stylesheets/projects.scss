@@ -24,10 +24,6 @@
   margin-bottom: 0;
 }
 
-.project-days-left {
-  font-size: 0.75em;
-}
-
 .projects {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
@@ -50,4 +46,14 @@ main {
 h1, h2 {
   padding-top: 0.5rem;
   margin: 0.5rem;
+}
+
+
+.project-days-left {
+  font-size: 1em;
+}
+
+.past_deadline {
+  font-size: 1em;
+  color: red;
 }
