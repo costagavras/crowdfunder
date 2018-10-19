@@ -27,12 +27,14 @@
           <%= link_to "Register", new_user_path %> |
           <%= link_to "Login", :login %>
         <% end %>
+        <br>
+        <% flash.each do |key, message| %>
+          <div class="flash-<%= key %>"><span class="error_message"><%= message %><span></div>
+        <% end %>
       </nav>
     </header>
 
-    <% flash.each do |key, message| %>
-      <div class="flash-<%= key %>"><%= message %></div>
-    <% end %>
+
 
     <main>
       <%= yield %>

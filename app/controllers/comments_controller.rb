@@ -4,10 +4,13 @@ class CommentsController < ApplicationController
     @comment = Comment.new
     @comment.review = params[:comment][:review]
     @comment.project_id = params[:project_id]
-    @comment.user_id = current_user.id
 
-    if @comment.save
+    if current_user
+      @comment.user_id = current_user.id
+      @comment.save
       redirect_to project_url(params[:project_id])
+    else
+      flash[:notice] = "Hi, please sign in"
     end
   end
 

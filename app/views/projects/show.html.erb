@@ -1,4 +1,4 @@
-<%= link_to('Back to index', projects_path) %>
+<h2><%= link_to('Back to index', projects_path) %></h2>
 <hr>
 
 <h1><%= @project.title %></h1>
@@ -7,12 +7,12 @@
   <%= image_tag @project.image %>
 <% end %>
 
-by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@project.user.email})","/users/#{@project.user.id}") %>
+by <i><%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@project.user.email})","/users/#{@project.user.id}") %></i>
 <p><%= @project.description %></p>
 <p>Goal: <%= number_to_currency(@project.goal) %></p>
 <p>Fundraising starts: <%= @project.start_date.strftime("%A %b %d %Y") %></p>
 <p>Deadline: <%= @project.end_date.strftime("%A %b %d %Y") %></p>
-<time>
+<time class="project-days-left <%= ( @project.end_date < Time.now.utc ) ? 'past_deadline' : '' %> ">
   <%= icon('clock-o') %>
   <%= "#{time_ago_in_words(@project.end_date)} #{(@project.end_date > Time.now.utc ) ? 'remaining' : 'past deadline'}" %>
 </time>
@@ -31,15 +31,19 @@ by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@projec
 
   <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %>  |  <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></p></small>
 <% end %>
-<%= link_to "Add new reward", new_project_reward_path(@project) %>
 
-<%if @project.user == current_user %>
-  <h2>Pledges</h2>
-  <hr>
-  <% @project.pledges.each do |pledge| %>
-    <p><%=pledge.user.email%> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
-  <% end %>
-<%end %>
+<br>
+<%= link_to "Add new reward", new_project_reward_path(@project) %>
+<br>
+<br>
+<hr>
+<h2>Pledges</h2>
+<hr>
+<% @project.pledges.each do |pledge| %>
+
+  <p><%=pledge.user.first_name%> <%=pledge.user.last_name%> <i>(<%=pledge.user.email%>)</i> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
+<% end %>
+
 
 <h2>New Review:</h2>
 

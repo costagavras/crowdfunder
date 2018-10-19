@@ -16,6 +16,11 @@
 
 // Module styles
 @import 'projects';
+@import 'users';
+@import 'pledges';
+@import 'comments';
+@import 'rewards';
+@import 'user_sessions.scss';
 
 .logo {
   background-color: pink;
@@ -31,6 +36,10 @@ span {
   font-weight: bold;
 }
 
+.error_message {
+  font-size: 1.5em;
+}
+
 .site-header {
   margin-bottom: 0
 }
@@ -38,4 +47,17 @@ span {
 .site-footer {
   padding: 0.5rem;
   background-color: rgb(165, 198, 255);
+}
+
+.flash-notice, .flash-alert {
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.flash-notice {
+  background-color: rgb(206, 244, 183);
+}
+
+.flash-alert {
+  background-color: red;
 }
