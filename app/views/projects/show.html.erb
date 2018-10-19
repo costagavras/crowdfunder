@@ -33,12 +33,13 @@ by <%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@projec
 <% end %>
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
 
-<h2>Pledges</h2>
-<hr>
-<% @project.pledges.each do |pledge| %>
-  <p><%=pledge.user.email%> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
-<% end %>
-
+<%if @project.user == current_user %>
+  <h2>Pledges</h2>
+  <hr>
+  <% @project.pledges.each do |pledge| %>
+    <p><%=pledge.user.email%> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
+  <% end %>
+<%end %>
 
 <h2>New Review:</h2>
 
