@@ -1,4 +1,8 @@
 class CommentsController < ApplicationController
+before_action :ensure_logged_in
+before_action :load_comment, only: [:edit, :update, :destroy]
+before_action :ensure_user_has_backed_project, only: [:create]
+
 
   def create
     @comment = Comment.new
@@ -15,12 +19,10 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
     @project = Project.find(params[:project_id])
   end
 
   def update
-    @comment = Comment.find(params[:id])
     @comment.review = params[:comment][:review]
 
     @comment.save
@@ -29,10 +31,25 @@ class CommentsController < ApplicationController
 
 
   def destroy
-
-    @comment = Comment.find(params[:id])
     @comment.destroy
     redirect_to project_url(@comment.project_id)
   end
+
+  private
+
+  def load_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def ensure_user_has_backed_project
+  @project = Project.find(params[:project_id])
+  @backed_users = @project.users
+    if @backed_users.include?(current_user)
+    else
+      flash[:alert] = "Please Pledge2Me first before commenting"
+      redirect_to project_url(@project)
+    end
+  end
+
 
 end
