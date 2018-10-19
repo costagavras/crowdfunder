@@ -39,15 +39,18 @@ class UserTest < ActiveSupport::TestCase
     #   password: "12345678", password_confirmation: "12345678" )
     # user2 = User.create(id: 2, first_name: "Johnnie2", last_name: "Torrance2", email: "bettymaker2@gmail.com",
     #   password: "12345678", password_confirmation: "12345678" )
-      user1 = create(:user)
-      user2 = create(:user, first_name: "Johnnie2", last_name: "Torrance2", email: "bettymaker2@gmail.com")
+    user1 = create(:user)
+    user2 = create(:user, first_name: "Jack2", last_name: "Torrance2", email: "bettymaker2@gmail.com")
 
-    project = Project.create!(user: user2, title: "XYZ", description: "Do stuff", goal: rand(100000),
-    start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
+    # project = Project.create!(user: user2, title: "XYZ", description: "Do stuff", goal: rand(100000),
+    # start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
+    project = create(:project, user: user2)
 
-    pledge1 = Pledge.create(user: user1, dollar_amount: 20, project: project)
-    pledge2 = Pledge.create(user: user1, dollar_amount: 30, project: project)
-    pledge3 = Pledge.create(user: user1, dollar_amount: -5, project: project)
+    # pledge1 = Pledge.create(user: user1, dollar_amount: 20, project: project)
+    # pledge2 = Pledge.create(user: user1, dollar_amount: 30, project: project)
+    # pledge3 = Pledge.create(user: user1, dollar_amount: -5, project: project)
+    pledge1 = create(:pledge, user: user1, dollar_amount: 20, project: project)
+    pledge2 = create(:pledge, user: user1, dollar_amount: 30, project: project)
 
     actual = user1.sum_pledges
     expected = 50
@@ -59,8 +62,9 @@ class UserTest < ActiveSupport::TestCase
 #association tests-------------------------------------------------------------------------------------
   def test_project_belongs_to_user
     user = create(:user)
-    project = Project.create(user: user, title: "XYZ", description: "Do stuff", goal: rand(100000),
-    start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
+    # project = Project.create(user: user, title: "XYZ", description: "Do stuff", goal: rand(100000),
+    # start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
+    project = create(:project, user: user)
 
     actual = user.projects.first
     expected = project
@@ -70,12 +74,14 @@ class UserTest < ActiveSupport::TestCase
 
   def test_pledge_belongs_to_user
     user1 = create(:user)
-    user2 = create(:user, first_name: "Johnnie2", last_name: "Torrance2", email: "bettymaker2@gmail.com")
+    user2 = create(:user, first_name: "Jack2", last_name: "Torrance2", email: "bettymaker2@gmail.com")
 
-    project = Project.create(user: user2, title: "XYZ", description: "Do stuff", goal: rand(100000),
-    start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
+    # project = Project.create(user: user2, title: "XYZ", description: "Do stuff", goal: rand(100000),
+    # start_date: DateTime.now.utc + 5000, end_date: Time.now.utc + rand(50).days)
+    project = create(:project, user: user2)
 
-    pledge = Pledge.create(user: user1, dollar_amount: 20, project: project)
+    # pledge = Pledge.create(user: user1, dollar_amount: 20, project: project)
+    pledge = create(:pledge, user: user1, project: project)
 
     actual = user1.pledges.first
     expected = pledge
