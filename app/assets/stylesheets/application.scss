@@ -16,6 +16,11 @@
 
 // Module styles
 @import 'projects';
+@import 'users';
+@import 'pledges';
+@import 'comments';
+@import 'rewards';
+@import 'user_sessions.scss';
 
 .logo {
   background-color: pink;
@@ -55,8 +60,4 @@ span {
 
 .flash-alert {
   background-color: red;
-}
-
-.after_end_date {
-  color: red;
 }
