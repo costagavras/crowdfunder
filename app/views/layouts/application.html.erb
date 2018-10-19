@@ -13,7 +13,7 @@
 
   <body>
     <header class="site-header">
-      <h1 class="logo">Crowdfunder</h1>
+      <a href="<%=projects_path%>"> <h1 class="logo">Crowdfunder</h1></a>
 
       <nav class="site-nav">
         <% if current_user %>
@@ -37,7 +37,7 @@
     <main>
       <%= yield %>
     </main>
-    
+
     <footer class="site-footer">
       <hr>
       <small>A Bitmaker assignment by <span>Dan, Stephen & Constantine<span></small>
