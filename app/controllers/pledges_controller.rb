@@ -2,18 +2,26 @@ class PledgesController < ApplicationController
   # before_action :require_login
 
   def create
+
     @project = Project.find(params[:project_id])
+    @comment = Comment.new
 
-    @pledge = @project.pledges.build
-    @pledge.dollar_amount = params[:pledge][:dollar_amount]
-    @pledge.user = current_user
+    new_pledge = Pledge.new(dollar_amount: params[:pledge][:dollar_amount],
+                            user: current_user,
+                            project: @project)
+    # new_pledge = @project.pledges.build
+    # new_pledge.dollar_amount = params[:pledge][:dollar_amount]
+    # new_pledge.user = current_user
 
-      if @pledge.save
+      if new_pledge.save
+        @pledge = new_pledge
         redirect_to project_url(@project), notice: "You have successfully backed #{@project.title}!"
       else
-        flash.now[:alert] = @pledge.errors.full_messages.first
+        flash.now[:alert] = new_pledge.errors.full_messages.first
         render 'projects/show'
       end
   end
+
+
 
 end

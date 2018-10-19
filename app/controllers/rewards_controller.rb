@@ -19,9 +19,17 @@ class RewardsController < ApplicationController
 
   def destroy
     @reward = Reward.find(params[:id])
-    @reward.destroy
 
-    redirect_to project_url(@project), notice: 'Reward successfully removed'
+    if(@reward.project.user == current_user)
+      @reward.destroy
+      redirect_to project_url(@project), notice: 'Reward successfully removed'
+    else
+      @project = Project.find(params[:project_id])
+      @comment = Comment.new
+      flash[:error] = "You are not the owner; you cannot delete this reward"
+      render "/projects/show"
+    end
+
   end
 
   private

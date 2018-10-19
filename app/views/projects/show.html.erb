@@ -19,6 +19,7 @@ by <i><%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@pro
 <br>
 <br>
 <%= form_for [@project, Pledge.new] do |f| %>
+  <h2>I am using this form</h2>
   <%= f.number_field :dollar_amount, value: @project.rewards.minimum(:dollar_amount), step: 0.01 %>
   <%= f.submit "Pledge" %>
 <% end %>
@@ -30,6 +31,7 @@ by <i><%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@pro
 
   <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %>  |  <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></p></small>
 <% end %>
+
 <br>
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
 <br>
@@ -41,6 +43,7 @@ by <i><%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@pro
 
   <p><%=pledge.user.first_name%> <%=pledge.user.last_name%> <i>(<%=pledge.user.email%>)</i> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
 <% end %>
+
 
 <h2>New Review:</h2>
 
