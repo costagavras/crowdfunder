@@ -155,7 +155,6 @@ class ProjectTest < ActiveSupport::TestCase
 
     expected = update
     actual = my_project.updates
-
     assert_includes(actual, expected)
   end
 

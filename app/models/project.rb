@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
       total_count
   end
 
-  def self.pledge_count
+  def self.total_pledge_value
      pledge_count = 0
       Project.all.each do |project|
         if project.pledges
