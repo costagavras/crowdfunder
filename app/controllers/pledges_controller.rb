@@ -1,12 +1,8 @@
 class PledgesController < ApplicationController
   # before_action :require_login
-  before_action :load_project
 
   def create
-    #@project = Project.find(params[:project_id])
-    puts "============================"
-    puts "I HERE"
-    puts "============================"
+
     @project = Project.find(params[:project_id])
     @comment = Comment.new
 
@@ -26,9 +22,6 @@ class PledgesController < ApplicationController
       end
   end
 
-  def load_project
-
-  end
 
 
 end
