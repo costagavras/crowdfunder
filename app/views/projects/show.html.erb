@@ -24,27 +24,39 @@ by <i><%=link_to("#{@project.user.first_name} #{@project.user.last_name} (#{@pro
   <%= f.submit "Pledge" %>
 <% end %>
 <br>
+
+<hr>
+<h2>Pledges</h2>
+<hr>
+<% @project.pledges.each do |pledge| %>
+<%best_reward = @project.pledges_to_rewards(pledge)%>
+  <p><%=pledge.user.first_name%> <%=pledge.user.last_name%> <i>(<%=pledge.user.email%>)</i> pledged: <%= number_to_currency(pledge.dollar_amount) %> | claimed a reward of <%=best_reward.description%> : <%= number_to_currency(best_reward.dollar_amount) %> </p>
+<% end %>
+<br>
+
 <hr>
 <h2>Rewards</h2>
 <hr>
 <% @project.rewards.each do |reward| %>
-
-  <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %>  |  <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></p></small>
+    <% not_rewarded = reward %>
+    <% best_reward = nil%>
+    <% @project.pledges.each do |pledge| %>
+        <%best_reward = @project.pledges_to_rewards(pledge)%>
+        <% if best_reward == reward %>
+            <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %> | claimed by: <%=pledge.user.first_name%> <%=pledge.user.last_name%> | <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></small></p>
+            <%break%>
+        <% end %>
+    <% end %>
+    <% if best_reward != reward %>
+      <p><%= reward.description %>: <%= number_to_currency(reward.dollar_amount) %> | not claimed | <small><%= link_to "Remove reward", project_reward_path(@project, reward), method: 'delete' %></small></p>
+    <% end %>
 <% end %>
 
 <br>
 <%= link_to "Add new reward", new_project_reward_path(@project) %>
 <br>
-<br>
+
 <hr>
-<h2>Pledges</h2>
-<hr>
-<% @project.pledges.each do |pledge| %>
-
-  <p><%=pledge.user.first_name%> <%=pledge.user.last_name%> <i>(<%=pledge.user.email%>)</i> pledged: <%= number_to_currency(pledge.dollar_amount) %></p>
-<% end %>
-
-
 <h2>New Review:</h2>
 
 <% @project.comments.each do |comment| %>
