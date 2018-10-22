@@ -22,18 +22,11 @@ class Project < ActiveRecord::Base
 
   def self.fund_count
       total_count = 0
-
        Project.all.each do |project|
           if project.pledges
-            pledge_count = 0
-            project.pledges.each do |pledge|
-              pledge_count += pledge.dollar_amount
-            end
-            if pledge_count >= project.goal
-              total_count += 1
-            end
-          end
-      end
+             total_count += 1
+           end
+         end
       total_count
   end
 
@@ -49,17 +42,27 @@ class Project < ActiveRecord::Base
      pledge_count
   end
 
-  def self.pledges_to_rewards
-      if self.user == current_user && self.pledges && self.rewards
-        self.pledges each do |pledge|
-          self.rewards each do |reward|
-            Rewards.where(pledge.dollar_amount>= reward.dollar_amount)
+  def pledges_to_rewards(pledge)
+    arr_potential_rewards = []
+    arr_potential_rewards_amount = []
+    reward_index = 0
+    if pledge && rewards
+      rewards.each do |reward|
 
-          end
+        # sorting technique
+        if pledge.dollar_amount>= reward.dollar_amount
+          arr_potential_rewards << reward
+          arr_potential_rewards_amount << reward.dollar_amount
         end
       end
 
+      reward_index = arr_potential_rewards_amount.each_with_index.max[1]
+      best_reward = arr_potential_rewards[reward_index]
 
+      # key association
+      best_reward.update(:pledge_id => pledge.id)
+      return best_reward
+    end
   end
 
 

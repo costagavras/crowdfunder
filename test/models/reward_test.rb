@@ -61,9 +61,28 @@ class RewardTest < ActiveSupport::TestCase
 
   end
 
+  def test_update_pledge_id_in_reward
+
+    user1 = create(:user)
+    user2 = create(:user, first_name: "Jack2", last_name: "Torrance2", email: "bettymaker2@gmail.com")
+
+    project = create(:project, user: user2)
+
+    pledge = create(:pledge, user: user1, dollar_amount: 30, project: project)
 
 
+    reward1 = create(:reward, dollar_amount: 20, project: project)
+    reward2 = create(:reward, dollar_amount: 25, project: project)
+    reward3 = create(:reward, dollar_amount: 35, project: project)
 
+    reward = project.pledges_to_rewards(pledge)
+    # puts reward.inspect
+    # binding.prys
+    # TESTING THAT THE REWARDS HAVE THE SAME ID, i.e. THEY ARE THE SAME REWARD
+    actual = reward.id
+    expected = reward2.id
 
+    assert_equal(expected, actual)
 
+  end
 end
